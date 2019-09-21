@@ -7,9 +7,11 @@ node {
                 sh "${mvnHome}/bin/mvn clean"
         }
         stage('-----Test-----') { 
-                sh "mvn test"
+                def mvnHome = tool name: 'm6', type: 'maven'
+                sh "${mvnHome}/bin/mvn test"
         }
         stage('----Deploy-----') { 
-                sh "mvn package"
+                def mvnHome = tool name: 'm6', type: 'maven'
+                sh "${mvnHome}/bin/mvn package"
         }
 }
