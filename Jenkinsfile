@@ -1,28 +1,23 @@
 pipeline {
-         agent any
-         stages{        
-           stage('-----Clone Repo-----') { 
-             steps{ 
-                git "https://github.com/mayanks44/FirstMVNProject"
-            }
-         }
+    agent any
+     stages{        
         stage('-----Clean-----') { 
              def mvnHome = tool name: 'm6', type: 'maven'
-             steps{
+             
                 sh "${mvnHome}/bin/mvn clean"
-             }
+             
          }
         stage('-----Test-----') { 
-              steps{
+            
                 def mvnHome = tool name: 'm6', type: 'maven'
                 sh "${mvnHome}/bin/mvn test"
-              }
+             
          }
         stage('----Deploy-----') { 
-              steps{
+            
                 def mvnHome = tool name: 'm6', type: 'maven'
                 sh "${mvnHome}/bin/mvn package"
-              }
+            
          }
     }
 }
