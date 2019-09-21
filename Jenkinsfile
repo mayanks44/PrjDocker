@@ -1,5 +1,4 @@
-pipeline {
-    agent any
+node {
      stages{   
          stage('-----Clone Repo-----') { 
                 git "https://github.com/mayanks44/FirstMVNProject"
