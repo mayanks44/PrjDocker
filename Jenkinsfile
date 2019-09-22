@@ -1,19 +1,27 @@
 pipeline {
-  agent {
- label 'docker' 
-    }
-  stages {
-    stage('build with docker') {
-      agent {
-        docker {
-          label 'docker'
-          image 'maven:3.3.3'
+    agent { label 'dockerserver' } // if you don't have other steps, 'any' agent works
+    stages {
+        stage('Back-end') {
+            agent {
+                docker {
+                  label 'dockerserver'  // both label and image
+                  image 'maven:3-alpine'
+                }
+            }
+            steps {
+                sh 'mvn --version'
+            }
         }
-      }
-      steps {
-        sh 'mvn --version'
-        sh 'mvn install'
-      }
+        stage('Front-end') {
+            agent {
+              docker {
+                label 'dockerserver'  // both label and image
+                image 'node:7-alpine' 
+              }
+            }
+            steps {
+                sh 'node --version'
+            }
+        }
     }
-  }
 }
